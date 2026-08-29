@@ -1,37 +1,93 @@
 // src/App.tsx
 
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import cloudflareLogo from "./assets/Cloudflare_Logo.svg";
-import honoLogo from "./assets/hono.svg";
+import { Dashboard } from "./pages/Dashboard";
+import { User } from "./pages/User";
+import { About } from "./pages/About";
 import "./App.css";
 
+type Page = "home" | "dashboard" | "user" | "about";
+
 function App() {
+	const [currentPage, setCurrentPage] = useState<Page>("home");
 	const [count, setCount] = useState(0);
 	const [name, setName] = useState("unknown");
 
+	const renderPage = () => {
+		switch (currentPage) {
+			case "dashboard":
+				return <Dashboard />;
+			case "user":
+				return <User />;
+			case "about":
+				return <About />;
+			default:
+				return <HomePage count={count} setCount={setCount} name={name} setName={setName} />;
+		}
+	};
+
 	return (
-		<>
-			<div>
-				<a href="https://vite.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-				<a href="https://hono.dev/" target="_blank">
-					<img src={honoLogo} className="logo cloudflare" alt="Hono logo" />
-				</a>
-				<a href="https://workers.cloudflare.com/" target="_blank">
-					<img
-						src={cloudflareLogo}
-						className="logo cloudflare"
-						alt="Cloudflare logo"
-					/>
-				</a>
+		<div className="app-container">
+			<nav className="navbar">
+				<div className="navbar-brand">MyApp</div>
+				<ul className="navbar-menu">
+					<li>
+						<button
+							className={`nav-link ${currentPage === "home" ? "active" : ""}`}
+							onClick={() => setCurrentPage("home")}
+						>
+							Home
+						</button>
+					</li>
+					<li>
+						<button
+							className={`nav-link ${currentPage === "dashboard" ? "active" : ""}`}
+							onClick={() => setCurrentPage("dashboard")}
+						>
+							Dashboard
+						</button>
+					</li>
+					<li>
+						<button
+							className={`nav-link ${currentPage === "user" ? "active" : ""}`}
+							onClick={() => setCurrentPage("user")}
+						>
+							Profile
+						</button>
+					</li>
+					<li>
+						<button
+							className={`nav-link ${currentPage === "about" ? "active" : ""}`}
+							onClick={() => setCurrentPage("about")}
+						>
+							About
+						</button>
+					</li>
+				</ul>
+			</nav>
+
+			<main className="main-content">
+				{renderPage()}
+			</main>
+		</div>
+	);
+}
+
+interface HomePageProps {
+	count: number;
+	setCount: (value: number) => void;
+	name: string;
+	setName: (value: string) => void;
+}
+
+function HomePage({ count, setCount, name, setName }: HomePageProps) {
+	return (
+		<div className="page-container home-page">
+			<div className="page-header">
+				<h1>Welcome to MyApp</h1>
+				<p>A modern React application with Vite and Cloudflare Workers</p>
 			</div>
-			<h1> By ZMO test</h1>
+
 			<div className="card">
 				<button
 					onClick={() => setCount((count) => count + 1)}
@@ -40,7 +96,7 @@ function App() {
 					count is {count}
 				</button>
 				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
+					Click the button to increment the counter
 				</p>
 			</div>
 			<div className="card">
@@ -55,11 +111,11 @@ function App() {
 					Name from API is: {name}
 				</button>
 				<p>
-					Edit <code>worker/index.ts</code> to change the name
+					Click to fetch your name from the Cloudflare Worker API
 				</p>
 			</div>
-			<p className="read-the-docs">Click on the logos to learn more</p>
-		</>
+			<p className="read-the-docs">Navigate using the menu to explore different pages</p>
+		</div>
 	);
 }
 
