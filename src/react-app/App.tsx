@@ -10,7 +10,6 @@ type Page =  "dashboard" | "user" | "about";
 
 function App() {
 	const [currentPage, setCurrentPage] = useState<Page>("dashboard");
-	const [name, setName] = useState("unknown");
 
 	const renderPage = () => {
 		switch (currentPage) {
@@ -30,14 +29,6 @@ function App() {
 			<nav className="navbar">
 				<div className="navbar-brand">MyApp</div>
 				<ul className="navbar-menu">
-					<li>
-						<button
-							className={`nav-link ${currentPage === "home" ? "active" : ""}`}
-							onClick={() => setCurrentPage("home")}
-						>
-							Home
-						</button>
-					</li>
 					<li>
 						<button
 							className={`nav-link ${currentPage === "dashboard" ? "active" : ""}`}
