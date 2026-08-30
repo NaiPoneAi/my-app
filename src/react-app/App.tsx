@@ -10,7 +10,6 @@ type Page = "home" | "dashboard" | "user" | "about";
 
 function App() {
 	const [currentPage, setCurrentPage] = useState<Page>("home");
-	const [count, setCount] = useState(0);
 	const [name, setName] = useState("unknown");
 
 	const renderPage = () => {
@@ -71,13 +70,6 @@ function App() {
 			</main>
 		</div>
 	);
-}
-
-interface HomePageProps {
-	count: number;
-	setCount: (value: number) => void;
-	name: string;
-	setName: (value: string) => void;
 }
 
 function HomePage() {
