@@ -22,7 +22,7 @@ function App() {
 			case "about":
 				return <About />;
 			default:
-				return <HomePage count={count} setCount={setCount} name={name} setName={setName} />;
+				return <HomePage/>;
 		}
 	};
 
