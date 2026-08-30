@@ -6,10 +6,10 @@ import { User } from "./pages/User";
 import { About } from "./pages/About";
 import "./App.css";
 
-type Page = "home" | "dashboard" | "user" | "about";
+type Page =  "dashboard" | "user" | "about";
 
 function App() {
-	const [currentPage, setCurrentPage] = useState<Page>("home");
+	const [currentPage, setCurrentPage] = useState<Page>("dashboard");
 	const [name, setName] = useState("unknown");
 
 	const renderPage = () => {
@@ -21,7 +21,7 @@ function App() {
 			case "about":
 				return <About />;
 			default:
-				return <HomePage/>;
+				return <Dashboard/>;
 		}
 	};
 
@@ -68,27 +68,6 @@ function App() {
 			<main className="main-content">
 				{renderPage()}
 			</main>
-		</div>
-	);
-}
-
-function HomePage() {
-	return (
-		<div className="page-container home-page">
-			<div className="page-header">
-				<h1>Welcome to MyApp</h1>
-				<p>A modern React application with Vite and Cloudflare Workers</p>
-			</div>
-				<p>
-					Click the button to increment the counter
-				</p>
-			</div>
-			<div className="card">
-				<p>
-					Click to fetch your name from the Cloudflare Worker API
-				</p>
-			</div>
-			<p className="read-the-docs">Navigate using the menu to explore different pages</p>
 		</div>
 	);
 }
