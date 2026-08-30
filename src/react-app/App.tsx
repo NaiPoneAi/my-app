@@ -80,7 +80,7 @@ interface HomePageProps {
 	setName: (value: string) => void;
 }
 
-function HomePage({ name, setName }: HomePageProps) {
+function HomePage() {
 	return (
 		<div className="page-container home-page">
 			<div className="page-header">
@@ -92,16 +92,6 @@ function HomePage({ name, setName }: HomePageProps) {
 				</p>
 			</div>
 			<div className="card">
-				<button
-					onClick={() => {
-						fetch("/api/")
-							.then((res) => res.json() as Promise<{ name: string }>)
-							.then((data) => setName(data.name));
-					}}
-					aria-label="get name"
-				>
-					Name from API is: {name}
-				</button>
 				<p>
 					Click to fetch your name from the Cloudflare Worker API
 				</p>
