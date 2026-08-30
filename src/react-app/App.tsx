@@ -80,21 +80,13 @@ interface HomePageProps {
 	setName: (value: string) => void;
 }
 
-function HomePage({ count, setCount, name, setName }: HomePageProps) {
+function HomePage({ name, setName }: HomePageProps) {
 	return (
 		<div className="page-container home-page">
 			<div className="page-header">
 				<h1>Welcome to MyApp</h1>
 				<p>A modern React application with Vite and Cloudflare Workers</p>
 			</div>
-
-			<div className="card">
-				<button
-					onClick={() => setCount((count) => count + 1)}
-					aria-label="increment"
-				>
-					count is {count}
-				</button>
 				<p>
 					Click the button to increment the counter
 				</p>
