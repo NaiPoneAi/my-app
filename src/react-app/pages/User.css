@@ -1,3 +1,22 @@
+.page-header {
+	text-align: center;
+	margin-bottom: 3rem;
+	padding-bottom: 2rem;
+	border-bottom: 2px solid var(--vite-color-brand, #646cff);
+}
+
+.page-header h1 {
+	margin: 0 0 0.5rem 0;
+	font-size: 2.5rem;
+	color: var(--vite-color-brand, #646cff);
+}
+
+.page-header p {
+	margin: 0;
+	color: #888;
+	font-size: 1.1rem;
+}
+
 .user-content {
 	display: grid;
 	grid-template-columns: 1fr 2fr;
