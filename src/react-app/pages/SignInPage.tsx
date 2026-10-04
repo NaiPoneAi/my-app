@@ -1,4 +1,14 @@
-function SignInPage({ email, onEmailChange, password, onPasswordChange, onSubmit, showPassword, onTogglePassword }) {
+type SignInPageProps = {
+  email: string
+  onEmailChange: (email: string) => void
+  password: string
+  onPasswordChange: (password: string) => void
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+  showPassword: boolean
+  onTogglePassword: () => void
+}
+
+function SignInPage({ email, onEmailChange, password, onPasswordChange, onSubmit, showPassword, onTogglePassword }: SignInPageProps) {
   return (
     <div className="form-content">
       <p className="mobile-wordmark"><span className="wordmark-mark">m</span> morrow</p>

@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 
-function RegisterPage({ onRegister }) {
+function RegisterPage({ onRegister }: { onRegister: (email: string) => void }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
 
-  function handleSubmit(event) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     onRegister(email)
   }

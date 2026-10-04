@@ -1,4 +1,8 @@
-function SignOutPage({ onReturnToLogin }) {
+type SignOutPageProps = {
+  onReturnToLogin: () => void
+}
+
+function SignOutPage({ onReturnToLogin }: SignOutPageProps) {
   return (
     <div className="status-content">
       <span className="status-symbol signed-out-symbol" aria-hidden="true">&#8594;</span>
