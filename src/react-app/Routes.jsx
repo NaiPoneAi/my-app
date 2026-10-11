@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { loginUser, registerUser } from './api/auth'
 import {
   BrowserRouter,
   Navigate,
@@ -12,6 +13,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import SignInPage from './pages/SignInPage.jsx'
 import SignOutPage from './pages/SignOutPage.jsx'
+import StudentPage from './pages/StudentPage'
 
 function AccountPage({ email, onOpenDashboard }) {
   return (
@@ -28,23 +30,32 @@ function AccountPage({ email, onOpenDashboard }) {
 }
 
 function RouteContent() {
-  const [email, setEmail] = useState('test@email.com')
-  const [password, setPassword] = useState('123')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [loginError, setLoginError] = useState('')
   const navigate = useNavigate()
   const location = useLocation()
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
-    navigate('/account')
+    setLoginError('')
+
+    try {
+      await loginUser({ email, password })
+      navigate('/account')
+    } catch (error) {
+      setLoginError(error instanceof Error ? error.message : 'Unable to sign in. Please try again.')
+    }
   }
 
   function handleSignout() {
     navigate('/signout')
   }
 
-  function handleRegister(registeredEmail) {
-    setEmail(registeredEmail)
+  async function handleRegister(credentials) {
+    await registerUser(credentials)
+    setEmail(credentials.email)
     navigate('/dashboard')
   }
 
@@ -54,7 +65,7 @@ function RouteContent() {
   }
 
   return (
-    <main className={`auth-layout${location.pathname === '/dashboard' ? ' dashboard-layout' : ''}`}>
+    <main className={`auth-layout${['/dashboard', '/students'].includes(location.pathname) ? ' dashboard-layout' : ''}`}>
       <aside className="welcome-panel" aria-label="Morrow workspace">
         <div className="welcome-image" role="img" aria-label="Sunlight over a quiet coastline" />
         <div className="welcome-shade" />
@@ -86,6 +97,7 @@ function RouteContent() {
                 password={password}
                 onPasswordChange={setPassword}
                 onSubmit={handleSubmit}
+                error={loginError}
                 showPassword={showPassword}
                 onTogglePassword={() => setShowPassword(!showPassword)}
               />
@@ -98,6 +110,10 @@ function RouteContent() {
           <RouterRoute
             path="/dashboard"
             element={<Dashboard email={email} onSignOut={handleSignout} />}
+          />
+          <RouterRoute
+            path="/students"
+            element={<Dashboard email={email} onSignOut={handleSignout}><StudentPage /></Dashboard>}
           />
           <RouterRoute path="/register" element={<RegisterPage onRegister={handleRegister} />} />
           <RouterRoute path="/signout" element={<SignOutPage onReturnToLogin={handleReturnToLogin} />} />

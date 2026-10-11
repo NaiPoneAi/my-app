@@ -1,19 +1,21 @@
+import { Link } from 'react-router-dom'
+
 type SignInPageProps = {
   email: string
   onEmailChange: (email: string) => void
   password: string
   onPasswordChange: (password: string) => void
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+  error: string
   showPassword: boolean
   onTogglePassword: () => void
 }
 
-function SignInPage({ email, onEmailChange, password, onPasswordChange, onSubmit, showPassword, onTogglePassword }: SignInPageProps) {
+function SignInPage({ email, onEmailChange, password, onPasswordChange, onSubmit, error, showPassword, onTogglePassword }: SignInPageProps) {
   return (
     <div className="form-content">
       <p className="mobile-wordmark"><span className="wordmark-mark">m</span> morrow</p>
       <div className="form-heading">
-        <span className="eyebrow">WELCOME BACK</span>
         <h2>Sign in to Morrow</h2>
         <p>Pick up right where your team left off.</p>
       </div>
@@ -63,9 +65,10 @@ function SignInPage({ email, onEmailChange, password, onPasswordChange, onSubmit
         </label>
 
         <button className="primary-button" type="submit">Sign in <span aria-hidden="true">&#8594;</span></button>
+        {error && <p className="form-error" role="alert">{error}</p>}
       </form>
 
-      <p className="form-footnote">New to Morrow? <a href="#contact" onClick={(event) => event.preventDefault()}>Ask your team for an invite</a></p>
+      <p className="form-footnote">New to Morrow? <Link to="/register">Create an account</Link></p>
       <p className="legal-note">By continuing, you agree to our <a href="#terms" onClick={(event) => event.preventDefault()}>Terms</a> and <a href="#privacy" onClick={(event) => event.preventDefault()}>Privacy Policy</a>.</p>
     </div>
   )

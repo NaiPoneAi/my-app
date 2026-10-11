@@ -1,13 +1,26 @@
 import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
+import type { RegisterCredentials } from '../api/auth'
 
-function RegisterPage({ onRegister }: { onRegister: (email: string) => void }) {
+function RegisterPage({ onRegister }: { onRegister: (credentials: RegisterCredentials) => Promise<void> }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    onRegister(email)
+    setError('')
+    setIsSubmitting(true)
+
+    try {
+      await onRegister({ name, email, password })
+    } catch (submissionError) {
+      setError(submissionError instanceof Error ? submissionError.message : 'Unable to register. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -49,12 +62,17 @@ function RegisterPage({ onRegister }: { onRegister: (email: string) => void }) {
           id="register-password"
           minLength={8}
           name="password"
+          onChange={(event) => setPassword(event.target.value)}
           placeholder="At least 8 characters"
           required
           type="password"
+          value={password}
         />
 
-        <button className="primary-button" type="submit">Create account <span aria-hidden="true">&#8594;</span></button>
+        <button className="primary-button" disabled={isSubmitting} type="submit">
+          {isSubmitting ? 'Creating account...' : 'Create account'} <span aria-hidden="true">&#8594;</span>
+        </button>
+        {error && <p className="form-error" role="alert">{error}</p>}
       </form>
 
       <p className="form-footnote">Already have an account? <Link to="/">Sign in</Link></p>

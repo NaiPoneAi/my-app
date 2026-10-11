@@ -1,6 +1,7 @@
+import type { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 
-function Dashboard({ email, onSignOut }: { email?: string; onSignOut: () => void }) {
+function Dashboard({ email, onSignOut, children }: { email?: string; onSignOut: () => void; children?: ReactNode }) {
   const firstName = email ? email.split('@')[0] : ''
 
   return (
@@ -17,9 +18,12 @@ function Dashboard({ email, onSignOut }: { email?: string; onSignOut: () => void
         </div>
 
         <nav className="dashboard-nav" aria-label="Workspace navigation">
-          <a className="dashboard-nav-link is-active" href="#overview" aria-current="page">
+          <NavLink
+            className={({ isActive }) => `dashboard-nav-link${isActive ? ' is-active' : ''}`}
+            to="/dashboard"
+          >
             <span className="nav-mark nav-mark-overview" aria-hidden="true" />Overview
-          </a>
+          </NavLink>
           <a className="dashboard-nav-link" href="#recent-projects-title">
             <span className="nav-mark nav-mark-projects" aria-hidden="true" />Projects
           </a>
@@ -29,6 +33,12 @@ function Dashboard({ email, onSignOut }: { email?: string; onSignOut: () => void
           <a className="dashboard-nav-link" href="#team-members">
             <span className="nav-mark nav-mark-team" aria-hidden="true" />Team
           </a>
+          <NavLink
+            className={({ isActive }) => `dashboard-nav-link${isActive ? ' is-active' : ''}`}
+            to="/students"
+          >
+            <span className="nav-mark nav-mark-students" aria-hidden="true" />Students
+          </NavLink>
           <NavLink
             className={({ isActive }) => `dashboard-nav-link${isActive ? ' is-active' : ''}`}
             to="/register"
@@ -47,7 +57,7 @@ function Dashboard({ email, onSignOut }: { email?: string; onSignOut: () => void
         </div>
       </aside>
 
-      <div className="dashboard-content" id="overview">
+      {children ?? <div className="dashboard-content" id="overview">
         <header className="dashboard-header">
           <div>
             <span className="eyebrow">MONDAY, SEPTEMBER 28</span>
@@ -107,7 +117,7 @@ function Dashboard({ email, onSignOut }: { email?: string; onSignOut: () => void
         <div className="task-row"><span className="task-dot task-dot-green" /><span>Share moodboard with the team</span><small>Field notes</small></div>
         <div className="task-row"><span className="task-dot task-dot-yellow" /><span>Review launch copy</span><small>Spring launch</small></div>
       </section>
-      </div>
+      </div>}
     </div>
   )
 }
