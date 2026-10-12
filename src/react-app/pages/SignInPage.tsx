@@ -68,7 +68,7 @@ function SignInPage({ email, onEmailChange, password, onPasswordChange, onSubmit
         {error && <p className="form-error" role="alert">{error}</p>}
       </form>
 
-      <p className="form-footnote">New to Morrow? <Link to="/register">Create an account</Link></p>
+
       <p className="legal-note">By continuing, you agree to our <a href="#terms" onClick={(event) => event.preventDefault()}>Terms</a> and <a href="#privacy" onClick={(event) => event.preventDefault()}>Privacy Policy</a>.</p>
     </div>
   )
