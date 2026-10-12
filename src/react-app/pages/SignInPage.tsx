@@ -15,7 +15,7 @@ function SignInPage({ email, onEmailChange, password, onPasswordChange, onSubmit
     <div className="form-content">
       <p className="mobile-wordmark"><span className="wordmark-mark">m</span> morrow</p>
       <div className="form-heading">
-        <h2>Sign in to Morrow</h2>
+        <h2>Sign in to ZMO Test App</h2>
         <p>Pick up right where your team left off.</p>
       </div>
 

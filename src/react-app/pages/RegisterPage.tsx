@@ -25,11 +25,11 @@ function RegisterPage({ onRegister }: { onRegister: (credentials: RegisterCreden
 
   return (
     <div className="form-content">
-      <p className="mobile-wordmark"><span className="wordmark-mark">m</span> morrow</p>
+      <p className="mobile-wordmark"><span className="wordmark-mark">m</span> ZMO Test App</p>
       <div className="form-heading">
         <span className="eyebrow">JOIN YOUR WORKSPACE</span>
         <h2>Create your account</h2>
-        <p>Set up your Morrow profile and get started.</p>
+        <p>Set up your ZMO Test App profile and get started.</p>
       </div>
 
       <form className="login-form register-form" onSubmit={handleSubmit}>

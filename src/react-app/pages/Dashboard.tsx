@@ -9,7 +9,7 @@ function Dashboard({ email, onSignOut, children }: { email?: string; onSignOut: 
       <aside className="dashboard-sidebar" aria-label="Dashboard sidebar">
         <a className="dashboard-brand" href="#overview">
           <span className="wordmark-mark" aria-hidden="true">m</span>
-          <span>morrow</span>
+          <span>ZMO Test App</span>
         </a>
 
         <div className="workspace-switcher">
@@ -51,7 +51,7 @@ function Dashboard({ email, onSignOut, children }: { email?: string; onSignOut: 
           <span className="member-avatar" aria-hidden="true">{firstName ? firstName[0].toUpperCase() : 'M'}</span>
           <span className="member-details">
             <strong>{firstName || 'Workspace member'}</strong>
-            <small>{email || 'Morrow account'}</small>
+            <small>{email || 'ZMO Test App account'}</small>
           </span>
           <button className="dashboard-signout" onClick={onSignOut} type="button">Sign out</button>
         </div>
